@@ -1,3 +1,12 @@
+:root {
+  --light-green: #67cf85e5;
+  --dark-green: #275c36;
+  --grey-green: #5c8c6c;
+  --white: #d3ecda;
+  --grey: #b4ccbb;
+  --dark-grey: #343c3c; 
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +19,121 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+footer {
+  background-color: var(--grey);
+  text-align: center;
+}
+
+.ant-layout-header {
+  font-size: 20pt;
+  text-shadow: var(--dark-grey) 2px 2px 2px;
+  background-color: var(--light-green) ;
+}
+
+
+.ant-menu {
+  text-shadow: var(--dark-grey) 2px 2px 2px;
+  background-color: var(--light-green);
+  float: right;
+  padding-right: 100px;
+}
+
+.ant-menu-item {
+  color: white;
+  background-color: var(--light-green);
+  font-weight: bold;
+  font-size: medium;
+}
+
+.ant-menu-item-selected {
+  background-color: var(--grey-green) !important;
+}
+
+.ant-carousel {
+  background-color: var(--grey-green);
+}
+
+.ant-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Carousel-Wrapper {
+  position: relative;
+}
+
+.Carousel-Caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: auto;
+  color: #fff;
+  z-index: 1;
+  font-size: 50pt;
+  text-shadow: var(--dark-grey) 5px 5px 5px;
+}
+
+.Carousel-Caption p {
+  font-size: 30pt;
+}
+
+.RoutesWrapper {
+  display: flex;
+  width: 100%;
+  background-color: #f5f5f5;
+  border: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+
+}
+.RouteServicesWrapper, .RouteDoctorsWrapper {
+  flex-basis: 50%;
+  cursor: pointer;
+ 
+ 
+}
+
+.RouteServices, .RouteDoctors {
+  height: 50vh;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+
+  text-shadow: var(--dark-grey) 5px 5px 5px;
+}
+
+@media (min-width: 800px) {
+  .RouteServices, .RouteDoctors {
+    font-size: 40pt;
+  }
+}
+
+@media (max-width: 800px) {
+  .RouteServices, .RouteDoctors {
+    font-size: 20pt;
+  }
+}
+
+.RouteServices:hover, .RouteDoctors:hover {
+  background-color: var(--dark-green);
+  color: white !important;
+}
+
+
+.RouteServices {
+  background-color: var(--light-green);
+}
+
+.RouteDoctors {
+  background-color: var(--light-green);
 }

@@ -11,6 +11,7 @@ import Layout from "./Components/Layout/Layout";
 import Login from "./Components/Login/Login";
 import LogOff from "./Components/LogOff/LogOff";
 import Register from "./Components/Register/Register";
+import LandingPage from "./Components/LandingPage/LandingPage";
 
 const App = () => {
   const [doctors, setDoctors] = useState([]);
@@ -47,7 +48,11 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout user={user}></Layout>} >
-        <Route index element={<h3>Главная страница</h3>} />
+        <Route index element={
+          <div>
+            <LandingPage></LandingPage> 
+          </div>
+        } />
         <Route
           path="/Doctors"
           element={
