@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
     return (
-        <>        <div className="Carousel-Wrapper">
+        <>        
+        <div className="Carousel-Wrapper">
             <Carousel autoplay="{100}" dotPosition="bottom">
                 <div>
                     <img src={Carousel1}></img>
@@ -24,16 +25,17 @@ const LandingPage = () => {
                     <img src={Carousel4}></img>
                 </div>
             </Carousel>
-            <div className="Carousel-Caption">
+            <div className="Carousel-Caption FancyText">
                 <h2>Restful Clinic</h2>
                 <p>Быть здоровым — быть счастливым!</p>
             </div>
         </div>
+        
         <div className="RoutesWrapper">
 
             <div className="RouteServicesWrapper">
                 <Link to={"/Services"}>
-                    <Button className="RouteServices">
+                    <Button className="RouteServices FancyText">
                         <h2>Услуги</h2>
                     </Button> 
                 </Link >
@@ -41,7 +43,7 @@ const LandingPage = () => {
 
             <div className="RouteDoctorsWrapper">
                 <Link to={"/Doctors"}>
-                    <Button className="RouteDoctors">
+                    <Button className="RouteDoctors FancyText">
                         <h2>Доктора</h2>
                     </Button>
                 </Link >

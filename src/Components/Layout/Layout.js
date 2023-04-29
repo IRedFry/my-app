@@ -57,7 +57,7 @@ const Layout = ({ user }) => {
             float : "left",
             }}></img>
         </div>
-        <div className="companyName" style={{
+        <div className="companyName FancyText" style={{
           height: "64px",
           color: "white",
           float: "left",
@@ -79,7 +79,7 @@ const Layout = ({ user }) => {
           <h4>  </h4> // Пользователь: Гость
         )}
         </div>
-        <Menu theme="dark" mode="horizontal" items={items} selectedKeys={selectedKeys} className="menu" />
+        <Menu theme="dark" mode="horizontal" items={items} selectedKeys={selectedKeys} className="FancyText" />
       </Header>
       <Content className="site-layout" style={{justifyContent:"right"}}>
           <Outlet/>

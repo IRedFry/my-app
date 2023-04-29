@@ -3,22 +3,20 @@
   --dark-green: #275c36;
   --grey-green: #5c8c6c;
   --white: #d3ecda;
+  --true-white: #ffffff;
   --grey: #b4ccbb;
-  --dark-grey: #343c3c; 
+  --dark-grey: #343c3c;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 footer {
@@ -28,13 +26,15 @@ footer {
 
 .ant-layout-header {
   font-size: 20pt;
-  text-shadow: var(--dark-grey) 2px 2px 2px;
-  background-color: var(--light-green) ;
+  background-color: var(--light-green);
 }
 
+.FancyText {
+  text-shadow: var(--dark-grey) 3px 3px 3px;
+  color: #fff;
+}
 
 .ant-menu {
-  text-shadow: var(--dark-grey) 2px 2px 2px;
   background-color: var(--light-green);
   float: right;
   padding-right: 100px;
@@ -51,13 +51,17 @@ footer {
   background-color: var(--grey-green) !important;
 }
 
+
+/* Layout Page */
+
+
+
 .ant-carousel {
   background-color: var(--grey-green);
 }
 
 .ant-carousel img {
   width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 
@@ -72,10 +76,10 @@ footer {
   transform: translate(-50%, -50%);
   text-align: center;
   width: auto;
-  color: #fff;
+
   z-index: 1;
   font-size: 50pt;
-  text-shadow: var(--dark-grey) 5px 5px 5px;
+
 }
 
 .Carousel-Caption p {
@@ -90,41 +94,44 @@ footer {
   font-size: 14px;
   font-weight: 500;
   color: #333;
-
 }
-.RouteServicesWrapper, .RouteDoctorsWrapper {
+
+.RouteServicesWrapper,
+.RouteDoctorsWrapper {
   flex-basis: 50%;
   cursor: pointer;
- 
- 
 }
 
-.RouteServices, .RouteDoctors {
+.RouteServices,
+.RouteDoctors {
   height: 50vh;
   width: 100%;
   box-sizing: border-box;
   border: none;
   border-radius: 0;
   text-align: center;
-  color: #fff;
   z-index: 1;
 
-  text-shadow: var(--dark-grey) 5px 5px 5px;
 }
 
 @media (min-width: 800px) {
-  .RouteServices, .RouteDoctors {
+
+  .RouteServices,
+  .RouteDoctors {
     font-size: 40pt;
   }
 }
 
 @media (max-width: 800px) {
-  .RouteServices, .RouteDoctors {
+
+  .RouteServices,
+  .RouteDoctors {
     font-size: 20pt;
   }
 }
 
-.RouteServices:hover, .RouteDoctors:hover {
+.RouteServices:hover,
+.RouteDoctors:hover {
   background-color: var(--dark-green);
   color: white !important;
 }
@@ -136,4 +143,209 @@ footer {
 
 .RouteDoctors {
   background-color: var(--light-green);
+}
+
+
+.PageHeader {
+  height: 30vh;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60pt;
+  font-weight: 700;
+  background: linear-gradient(to bottom right, var(--dark-green), var(--grey-green));
+}
+
+
+
+/* Specialization Block */
+
+
+
+.SpecializationBlock {
+  background-color: var(--white);
+}
+
+.SpecializationContainer .SpecializationBlock:nth-child(2n) {
+  background-color: var(--light-green);
+}
+
+
+.SpecializationHeader {
+  text-align: center;
+  border-color: black;
+  font-size: 30pt;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.DoctorMiniContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+  position: relative;
+}
+
+.DoctorMiniWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DoctorMiniIcon {
+  object-fit: cover;
+  object-position: center;
+  width: 96px;
+  height: 96px;
+  align-self: center;
+  border-radius: 3px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.DoctorMiniFIO,
+.DoctorMiniYears {
+  font-size: 15pt;
+  font-weight: 500;
+  width: 50%;
+  text-align: center;
+  font-family: monospace;
+
+  padding: 0;
+}
+
+.DoctorMiniYears {
+  margin-bottom: 15px;
+}
+
+
+/* ServicePage */
+
+.ant-collapse-arrow {
+  position: absolute;
+  top: 40%;
+  right: 35px;
+  transform: translateY(-50%);
+  transform: scale(1.6);
+}
+
+.ServiceContainer {
+  background-color: var(--white);
+  padding: 1px;
+}
+
+.ServiceCollapse {
+  margin: 1% 2% 1% 2%;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.ServicePanel {
+  text-align: left;
+  font-size: 30pt;
+  background-color: var(--light-green);
+
+}
+
+.ant-collapse-header-text {
+  text-shadow: var(--dark-grey) 2px 2px 2px;
+  color: #fff;
+}
+
+.ServiceField {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ServiceField div {
+  flex: 1;
+  display: flex;
+}
+
+.ServiceField div::after {
+  content: " ";
+  flex: 1;
+  border-bottom: 4px dotted #000;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.butWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.ServiceAppointmentButton {
+  text-align: center;
+  background-color: var(--light-green);
+  font-size: 35pt;
+
+  border-radius: 20px;
+  border-color: transparent;
+  overflow: hidden;
+  height: auto;
+
+}
+
+
+.ServiceAppointmentButton:hover {
+  background-color: var(--white);
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.ServiceAppointmentButton:active {
+  background-color: var(--dark-green);
+  color: white !important;
+  border-color: transparent !important;
+}
+
+
+
+
+/* DoctorInfoPage */
+
+
+
+.MainInfoBlock {
+  display: flex;
+  justify-content: center;
+  background-color: var(--white);
+}
+
+.DoctorImage {
+  margin: 20px;
+  border-radius: 20%;
+}
+
+.TextInfoBlock {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30pt;
+  font-family: monospace;
+}
+
+.TextInfoBlock p {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.ScheduleBlock {
+  padding: 1px;
+  background-color: var(--true-white);
+
+}
+
+.ScheduleBlock .ant-picker-calendar {
+  margin: 5%;
 }
