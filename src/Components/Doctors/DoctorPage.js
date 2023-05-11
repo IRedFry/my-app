@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import SpecializationBlock from './SpecializationBlock';
 
 /*
@@ -10,15 +10,42 @@ import SpecializationBlock from './SpecializationBlock';
 */
 
 const DoctorPage = () => {
+
+    const[specializations, setSpecializations] = useState([]);
+
+    useEffect(() => {
+        const getSpecialization = async () => {
+            const requestOptions = {
+                method : 'GET'
+            }
+    
+            return await fetch('/api/Specialization', requestOptions)
+            .then(response => response.json())
+            .then((data) => {
+                console.log('SpecializationData:  ', data);
+                setSpecializations(data);
+            },
+            (error) => {
+                console.log(error);
+            });
+        }   
+        getSpecialization();
+    
+    }, [setSpecializations])
+    
     return (
         <>
             <div className="PageHeader FancyText">
                 Доктора
             </div>
             <div className="SpecializationContainer">
-                <SpecializationBlock specializationName="Педиатр"></SpecializationBlock>
-                <SpecializationBlock specializationName="Хирург"></SpecializationBlock>
-                <SpecializationBlock specializationName="Офтальмолог"></SpecializationBlock>
+            {
+                    specializations.map(({ id, name }) => {
+                        return (
+                            <SpecializationBlock key={id} id={id} specializationName={name}></SpecializationBlock>
+                        )
+                    })
+                }
             </div>
         </>
     )

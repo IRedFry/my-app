@@ -20,9 +20,10 @@ const items = [
     key: "/Doctors"
   },
   {
-    label: <Link to={"/Login"}> Личный кабинет </Link>,
-    key: "/Login"
+    label: <Link to={"/Account"}> Личный кабинет </Link>,
+    key: "/Account"
   },
+  
   // {
   //   label: <Link to={"/Logoff"}> Выход </Link>,
   //   key: "4"

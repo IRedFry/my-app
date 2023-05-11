@@ -51,58 +51,63 @@ const Login = ({ user, setUser }) => {
     errorMessages.map((index, error) => <div key={index}>{error}</div>);
   };
 
+  user.IsAuthenticated = false;
   return (
     <>
-      {user.IsAuthenticated ? (
-        <h3> Пользователь {user.userName} успешно вошел в систему</h3>
-      ) : (
+      {user.IsAuthenticated ? navigate("/") : (
         <>
-          <h3> Вход </h3>
-          <Form
-            onFinish={login}
-            name="basic"
-            labelCon={{span: 8}}
-            wrapperCol={{span: 16}}
-            style={{maxWidth: 500}}
-            initialValues={{remember: true}}
-            onFinishFailed={renderErrorMessage}
-            autoComplete="off"
-            >
-              <Form.Item
-                label="Имя пользователя"
-                name="username"
-                rules={[
-                  {required: true, message: "Введите имя пользователя"}
-                ]}
+                <div className="PageHeader FancyText">
+                Вход
+      </div>
+        <div className="FormWrapper">
+            <Form
+              className="FormClass"
+              onFinish={login}
+              name="basic"
+            
+              initialValues={{remember: true}}
+              onFinishFailed={renderErrorMessage}
+              autoComplete="off"
               >
-                <Input/>
-              </Form.Item>
+                <Form.Item
+                  className="FormItemClass FancyText"
+                  label="Имя пользователя"
+                  name="username"
 
-              <Form.Item
-                label="Пароль"
-                name="password"
-                rules={[
-                  {required: true, message: "Введите пароль"}
-                ]}
-              >
-                <Input.Password/>
-              </Form.Item>
+                  rules={[
+                    {required: true, message: "Введите имя пользователя"}
+                  ]}
+                >
+                  <Input/>
+                </Form.Item>
 
-              <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{offset: 8, span: 16}}
-              >
-               <Checkbox>Запомнить меня</Checkbox>
-               {renderErrorMessage()}
-              </Form.Item>
+                <Form.Item
 
-              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
-                Войти
-                </Button>
-              </Form.Item>
-          </Form>
+                  className="FormItemClass FancyText"
+                  label="Пароль"
+                  name="password"
+                  rules={[
+                    {required: true, message: "Введите пароль"}
+                  ]}
+                >
+                  <Input.Password/>
+                </Form.Item>
+
+                <Form.Item
+                  className="FormItemClass"
+                  name="remember"
+                  valuePropName="checked"
+                  wrapperCol={{offset: 8, span: 16}}
+                >
+                <Checkbox className="FormItemCheckBox FancyText">Запомнить меня</Checkbox>
+                {renderErrorMessage()}
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                  <Button className="FormButton" htmlType="submit"> Войти </Button>
+                </Form.Item>
+            </Form>
+          </div>
         </>
       )}
     </>

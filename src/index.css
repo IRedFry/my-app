@@ -349,3 +349,225 @@ footer {
 .ScheduleBlock .ant-picker-calendar {
   margin: 5%;
 }
+
+/*
+  LOGIN
+*/
+
+.FormWrapper {
+  padding: 50px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-green);
+  height: 50vh;
+}
+
+
+.FormItemClass .ant-form-item-label > label, .FormItemClass label{
+  font-size: 30px;
+  font-weight: bolder;
+  color: white;
+}
+
+.FormItemClass {
+  line-height: 52px;
+}
+
+.FormItemCheckBox {
+  line-height: 20px;
+}
+
+.FormButton {
+  text-align: center;
+  background-color: var(--dark-green);
+  color: white;
+  font-size: 20pt;
+  border-radius: 20px;
+  border-color: transparent;
+  overflow: hidden;
+  height: auto;
+}
+
+.FormButton:hover {
+  background-color: var(--white);
+  color: black !important;
+  border-color: transparent !important;
+}
+
+.FormButton:active {
+  background-color: var(--dark-grey);
+  color: white !important;
+  border-color: transparent !important;
+}
+
+
+/*
+
+ACCOUNT
+
+*/
+
+.AccountBlock {
+  background-color: var(--light-green);
+  padding: 10px;
+}
+
+.AccountContainer .AccountBlock:nth-child(2n) {
+  background-color: var(--white);
+}
+
+
+.AccountFIO {
+  padding: 20px;
+  font-size: 45pt;
+  font-weight: bold;
+}
+
+.AccountDOB {
+  padding-left: 20px;
+  padding-bottom: 10px;
+  font-size: 25pt;
+}
+
+.AccountFirstBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.LogoffButton {
+  margin: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.AccoutBlockHeader {
+  text-align: center;
+  font-size: 35pt;
+  padding: 5px;
+  font-family: monospace;
+  color: var(--dark-grey);
+}
+
+.WhiteHeader {
+  color: var(--true-white);
+}
+
+.AccountContainer .AccountBlock:nth-child(2n + 1) .ServicePanel{
+  background-color: var(--dark-green);
+}
+
+
+/*
+
+Schedule in Account
+
+*/
+
+.ScheduleRow {
+  display: flex;
+  justify-content: center;
+}
+
+.ScheduleCol {
+  margin: 5px;
+}
+
+.ScheduleCard {
+  background-color: var(--grey-green);
+  transition: background-color 0.3s ease;
+}
+
+.ScheduleCard:hover {
+  cursor: pointer;
+}
+
+.SelectedCard {
+  background-color: var(--dark-green);
+  transform: scale(1.1);
+}
+
+.ScheduleCard:active {
+  background-color: var(--light-green);
+}
+
+.ScheduleCard .ant-card-meta-title {
+  color: var(--true-white);
+}
+
+.ScheduleSlider {
+  margin-top: 4%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.ScheduleSlider .ant-slider-track{
+  background-color: var(--grey-green) !important;
+  height: 15px;
+}
+
+.ScheduleSlider .ant-slider-track:hover {
+  background-color: var(--light-green) !important;
+}
+
+.ScheduleSlider .ant-slider-track:active {
+  background-color: var(--light-green) !important;
+}
+
+.ScheduleSlider:hover .ant-slider-track{
+  background-color:  var(--light-green) !important;
+}
+
+.ScheduleSlider .ant-slider-rail{
+  height: 15px;
+  background-color: var(--grey) !important;
+}
+
+.ScheduleSlider .ant-slider-handle::after, .ScheduleSlider .ant-slider-handle:hover::after,.ScheduleSlider .ant-slider-handle:focus::after   {
+  width: 20px;
+  height: 20px;
+
+}
+.ScheduleSlider.ant-slider-handle::after,.ScheduleSlider .ant-slider-handle-1::after {
+  background-color: var(--true-white) !important;
+}
+
+.ScheduleSlider .ant-slider-handle::before, .ScheduleSlider .ant-slider-handle-1::before {
+  border-color: var(--dark-green) !important;
+}
+
+.ant-slider-dot{
+  border-color: var(--light-green) !important;
+  font-size: 20px;
+  margin-top: 5px;
+  transform: scale(2.2) !important;
+}
+
+.ScheduleSlider:hover .ant-slider-dot-active{
+  border-color: var(--grey-green) !important;
+}
+
+.ScheduleSlider .ant-slider-mark-text {
+  margin: 10px 0;
+}
+
+
+/*
+
+SLOTS
+
+*/
+
+.SlotGroup {
+  overflow: hidden
+}
+
+
+.ant-radio-button-wrapper  {
+  overflow: hidden;
+  margin: 5px;
+  border-left-width: 1px;
+  border-radius: 10px;
+}
+
+

@@ -14,7 +14,8 @@ import Login from "./Components/Login/Login";
 import LogOff from "./Components/LogOff/LogOff";
 import Register from "./Components/Register/Register";
 import LandingPage from "./Components/LandingPage/LandingPage";
-
+import Account from "./Components/Account/Account"
+import AccountDoctor from "./Components/Account/AccountDoctor";
 import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
 
 const App = () => {
@@ -28,7 +29,6 @@ const App = () => {
 
   const [user, setUser] = useState({ isAuthenticated: false, userName: "", userRole: "" });
   useEffect(() => {
-
 
     const getUser = async () => {
       return await fetch("/api/Account/IsAuthenticated")
@@ -53,6 +53,8 @@ const App = () => {
     };
     getUser();
   }, [setUser]);
+
+  user.userRole = "doctor";
 
   return (
     <BrowserRouter>
@@ -94,6 +96,7 @@ const App = () => {
           />
           <Route path="/LogOff" element={<LogOff setUser={setUser} />} />
           <Route path="/Register" element={<Register setUser={setUser} />} />
+          <Route path="/Account" element={ user.userRole === "client" ? <Account /> : <AccountDoctor/>} />
           <Route path="/Doctors/:id" element={<Doctor></Doctor>} />
           <Route path="*" element={<h3>404</h3>} />
         </Route>

@@ -8,16 +8,22 @@ import {Button} from "antd";
 
 const { Panel } = Collapse;
 
-const Service = ({id, name, specialization, price}) => {
-    console.log(id, name, specialization, price)
+const Service = ({service, setIsModalOpen, setCurrentService}) => {
+
+
+    const openAppoinmentModal = () => {
+        setCurrentService(service);
+        setIsModalOpen(true);
+    }
+
     return(
         <>
-        <Collapse className="ServiceCollapse">
-            <Panel header={name} key={id} className="ServicePanel">
-                <div className="SeriveFiledsWrapper ">
-                    <p className="ServiceField"> <div>Цена:</div> <span>{price}</span> </p>
-                    <p className="ServiceField"> <div>Специальность:</div> <span>{specialization}</span> </p>
-                    <div className="butWrap"><Button className="ServiceAppointmentButton FancyText"> Записаться </Button></div>
+        <Collapse className="ServiceCollapse ">
+            <Panel header={service.name} key={service.id} className="ServicePanel">
+                <div className="SeriveFiledsWrapper">
+                    <p className="ServiceField"> <div>Цена:</div> <span>{service.price} Руб.</span> </p>
+                    <p className="ServiceField"> <div>Специальность:</div> <span>{service.specializationName}</span> </p>
+                    <div className="butWrap"><Button className="ServiceAppointmentButton FancyText" onClick={openAppoinmentModal}> Записаться </Button></div>
                 </div>
             </Panel>
         </Collapse>
