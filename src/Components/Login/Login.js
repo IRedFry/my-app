@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Checkbox, Form, Input} from "antd"
+import { Button, Checkbox, Form, Input } from "antd"
 
 const Login = ({ user, setUser }) => {
   const [errorMessages, setErrorMessages] = useState([]);
@@ -23,7 +23,7 @@ const Login = ({ user, setUser }) => {
     return await fetch("/api/Account/Login", requestOptions)
       .then((response) => {
         response.status === 200 &&
-          setUser({ isAuthenticated: true, userName: "", userRole: "" });
+          setUser({ isAuthenticated: true, userName: "", userRole: "", doctor: {}, patient: {} });
         return response.json();
       })
       .then(
@@ -33,9 +33,9 @@ const Login = ({ user, setUser }) => {
             typeof data != "undefined" &&
             typeof data.userName != "undefined"
           ) {
-            setUser({ IsAuthenticated: true, userName: data.userName, userRole: data.userRole });
+            setUser({ IsAuthenticated: true, userName: data.userName, userRole: data.userRole, doctor: data.doctor, patient: data.patient });
             console.log(data.userName);
-            navigate("/");
+            navigate("/Account");
           }
           typeof data != "undefined" &&
             typeof data.error != "undefined" &&
@@ -56,58 +56,62 @@ const Login = ({ user, setUser }) => {
     <>
       {user.IsAuthenticated ? navigate("/") : (
         <>
-                <div className="PageHeader FancyText">
-                Вход
-      </div>
-        <div className="FormWrapper">
+          <div className="PageHeader FancyText">
+            Вход
+          </div>
+          <div className="FormWrapper">
             <Form
               className="FormClass"
               onFinish={login}
               name="basic"
-            
-              initialValues={{remember: true}}
+
+              initialValues={{ remember: true }}
               onFinishFailed={renderErrorMessage}
               autoComplete="off"
+            >
+              <Form.Item
+                className="FormItemClass FancyText"
+                label="Имя пользователя"
+                name="username"
+
+                rules={[
+                  { required: true, message: "Введите имя пользователя" }
+                ]}
               >
-                <Form.Item
-                  className="FormItemClass FancyText"
-                  label="Имя пользователя"
-                  name="username"
+                <Input />
+              </Form.Item>
 
-                  rules={[
-                    {required: true, message: "Введите имя пользователя"}
-                  ]}
-                >
-                  <Input/>
-                </Form.Item>
+              <Form.Item
 
-                <Form.Item
+                className="FormItemClass FancyText"
+                label="Пароль"
+                name="password"
+                rules={[
+                  { required: true, message: "Введите пароль" }
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
 
-                  className="FormItemClass FancyText"
-                  label="Пароль"
-                  name="password"
-                  rules={[
-                    {required: true, message: "Введите пароль"}
-                  ]}
-                >
-                  <Input.Password/>
-                </Form.Item>
-
-                <Form.Item
-                  className="FormItemClass"
-                  name="remember"
-                  valuePropName="checked"
-                  wrapperCol={{offset: 8, span: 16}}
-                >
+              <Form.Item
+                className="FormItemClass"
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 8, span: 16 }}
+              >
                 <Checkbox className="FormItemCheckBox FancyText">Запомнить меня</Checkbox>
                 {renderErrorMessage()}
-                </Form.Item>
-
+              </Form.Item>
+              <div className="LowerButtons">
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button className="FormButton" htmlType="submit"> Войти </Button>
                 </Form.Item>
+                <Button className="FormButton RegistrationButton" onClick={() => navigate('/Register')}> Зарегистрироваться </Button>
+              </div>
             </Form>
+
           </div>
+
         </>
       )}
     </>

@@ -2,11 +2,17 @@ import React from "react";
 import { Slider } from "antd";
 
 const ShiftSlider = ({day, onShiftChange }) => {
-
+      const startTimeParts = day.startTime.split(":");
+      const startHours = startTimeParts[0];
+      const endTimeParts = day.endTime.split(":");
+      const endHours = endTimeParts[0];
+    
     const formatter = (value) => `${value}:00`;
+    
 
 
   const handleShiftSliderChange = (value) => {
+    console.log(value);
     if (value[1] - value[0] < 8)
         {
           if (value[1] + 8 <= 21)
@@ -41,7 +47,7 @@ const ShiftSlider = ({day, onShiftChange }) => {
     21: '21:00',
     22: '22:00',
   }}    
-   range value={[day.start, day.end]} min={6} max={22} onChange={handleShiftSliderChange} />
+   range value={[startHours, endHours]} min={6} max={22} onChange={handleShiftSliderChange} />
   );
 };
 

@@ -1,54 +1,147 @@
-import React, { useState } from "react";
-import { Row, Col, Card } from "antd";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Button, notification } from "antd";
 import ShiftSlider from "./ShiftSlider";
 
-const WeekSchedule = () => {
-    const [selectedDay, setSelectedDay] = useState(0);
-    const [schedule, setSchedule] = useState([
-        { id: "0", day: "Понедельник", start: 8, end: 16 },
-        { id: "1", day: "Вторник", start: 9, end: 17 },
-        { id: "2", day: "Среда", start: 10, end: 18 },
-        { id: "3", day: "Четверг", start: 11, end: 19 },
-        { id: "4", day: "Пятница", start: 12, end: 20 },
-        { id: "5", day: "Суббота", start: 6, end: 14 },
-        { id: "6", day: "Воскресенье", start: 8, end: 16 },
-    ]);
+const WeekSchedule = ({ user }) => {
+    const [selectedDay, setSelectedDay] = useState({});
+    const [schedule, setSchedule] = useState([]);
 
+    useEffect(() => {
+        const getSchedule = async () => {
+            const requestOptions = {
+                method: 'GET'
+            }
+
+            return await fetch(`/api/Schedule/${user.doctor.id}`, requestOptions)
+                .then(response => response.json())
+                .then((data) => {
+                    console.log('setSchedule:  ', data);
+                    setSchedule(data);
+
+                    setSelectedDay(schedule[0]);
+                },
+                    (error) => {
+                        console.log(error);
+                    });
+        }
+        getSchedule();
+    }, [setSchedule])
+
+    const saveSchedule = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                schedule
+            }),
+        };
+        console.log("Request");
+        console.log(requestOptions);
+        await fetch('/api/Schedule/Edit', requestOptions)
+            .then((response) => {
+                console.log(response)
+                return response.json()
+            })
+            .then(
+                (data) => {
+                    if ( data.error != undefined) {
+                        notification.open({
+                            message: "Невозможно изменить расписание",
+                            description: data.message,
+                            className: 'custom-class',
+                            style: {
+                                width: 600,
+                              },
+                        })
+                        console.log("Data: ", data);
+                        handleDayClick(0);
+                    }
+                    else
+                    {
+                        notification.open({
+                            message: "Расписание успешно изменено",
+                            description: data.message,
+                            className: 'custom-class-2',
+                            style: {
+                                width: 600,
+                              },
+                        })
+                        console.log("Data: ", data);
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+
+        const newRequestOptions = {
+            method: 'GET'
+        }
+        return await fetch(`/api/Schedule/${user.doctor.id}`, newRequestOptions)
+            .then(response => response.json())
+            .then((data) => {
+                console.log('setSchedule:  ', data);
+                setSchedule(data);
+            },
+                (error) => {
+                    console.log(error);
+                });
+    };
 
     const handleDayClick = (id) => {
-        console.log("handleDayClickStart")
+        if (id === 0)
+        {
+            setSelectedDay({});
+            return;
+        }
+        console.log("handleDayClickStart " + id)
 
-        setSelectedDay(schedule[id]);
-        console.log("Start: " + schedule[id].start);
-        console.log("End: " + schedule[id].end);
+        setSelectedDay(schedule[id - 1]);
+        console.log("Start: " + schedule[id - 1].startTime);
+        console.log("End: " + schedule[id - 1].endTime);
         console.log("handleDayClickEnd")
     };
 
-    const handleShiftChange = (id, start, end) => {
+    const handleShiftChange = (id, startTime, endTime) => {
+
         const newSchedule = schedule.map((item) =>
-            item.id === id ? { ...item, start, end } : item
+            item.id === id ? { ...item, startTime: `${startTime}:00:00.7890123`, endTime: `${endTime}:00:00.7890123` } : item
         );
         setSchedule(newSchedule);
         setSelectedDay(newSchedule.find((item) => item.id === id));
+        console.log(newSchedule);
     };
 
 
-
     return (
-        <Row className="ScheduleRow" gutter={[16, 16]}>
-            {schedule.map(({ id, day }) => (
-                <Col className="ScheduleCol" span={3} key={id} >
-                    <Card className={selectedDay.id === id ?  "ScheduleCard SelectedCard" : "ScheduleCard"} onClick={() => handleDayClick(id)}>
-                        <Card.Meta title={day} />
-                    </Card>
-                </Col>
-            ))}
-            {selectedDay && (
-                <Col span={24}>
-                    <ShiftSlider day={selectedDay} onShiftChange={handleShiftChange} />
-                </Col>
-            )}
-        </Row>
+        <div className="WeekScheduleWrapper">
+            <Row className="ScheduleRow" gutter={[16, 16]}>
+                {schedule.map(({ id, dayOfWeekString }) => (
+                    <Col className="ScheduleCol" span={3} key={id} >
+                        <Card className={selectedDay != undefined && selectedDay.id === id ? "ScheduleCard SelectedCard" : "ScheduleCard"} onClick={() => handleDayClick(id)}>
+                            <Card.Meta title={dayOfWeekString} />
+                        </Card>
+                    </Col>
+                ))}
+                {selectedDay && (
+                    <Col span={24}>
+                        {
+                            console.log(Object.keys(selectedDay).length === 0)
+                        }
+                        {
+                            Object.keys(selectedDay).length !== 0 ?
+                                (
+                                    <ShiftSlider day={selectedDay} onShiftChange={handleShiftChange} />
+                                ) : (
+                                    ""
+                                )
+                        }
+                    </Col>
+                )}
+            </Row>
+            <Button className="FancyText SaveScheduleButton" onClick={saveSchedule}>Сохранить изменения</Button>
+        </div>
+
     );
 };
 

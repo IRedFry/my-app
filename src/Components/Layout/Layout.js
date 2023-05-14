@@ -49,7 +49,7 @@ const Layout = ({ user }) => {
 
   return (
     <LayoutAnt>
-      <Header style={{position: "sticky", top: 0, zIndex: 2, width: "100%", height: "auto"}}>
+      <Header style={{position: "sticky", top: 0, zIndex: 10, width: "100%", height: "auto"}}>
         <div className="logo">
           <img src={logo} className="LogoImage" style={{
             width: "64px",

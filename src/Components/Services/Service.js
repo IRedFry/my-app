@@ -8,11 +8,11 @@ import {Button} from "antd";
 
 const { Panel } = Collapse;
 
-const Service = ({service, setIsModalOpen, setCurrentService}) => {
-
+const Service = ({user, service, setIsModalOpen, setCurrentServiceId}) => {
+    console.log(user);
 
     const openAppoinmentModal = () => {
-        setCurrentService(service);
+        setCurrentServiceId(service.id);
         setIsModalOpen(true);
     }
 
@@ -23,7 +23,7 @@ const Service = ({service, setIsModalOpen, setCurrentService}) => {
                 <div className="SeriveFiledsWrapper">
                     <p className="ServiceField"> <div>Цена:</div> <span>{service.price} Руб.</span> </p>
                     <p className="ServiceField"> <div>Специальность:</div> <span>{service.specializationName}</span> </p>
-                    <div className="butWrap"><Button className="ServiceAppointmentButton FancyText" onClick={openAppoinmentModal}> Записаться </Button></div>
+                    { user.userRole == "user" ? (<div className="butWrap"><Button className="ServiceAppointmentButton FancyText" onClick={openAppoinmentModal}> Записаться </Button></div>) : ("")}
                 </div>
             </Panel>
         </Collapse>

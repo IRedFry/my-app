@@ -1,45 +1,48 @@
 import React from "react";
-//import { useNavigate } from "react-router-dom";
-import { Button, Form, Input} from "antd"
+import { useNavigate } from "react-router-dom";
+import { Button, Form, Input, DatePicker} from "antd"
 
-const Register = (/*{ setUser }*/) => {
-  //const navigate = useNavigate();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
+const Register = ({ setUser }) => {
 
-  //   const login = e.target.elements.loginField.value;
-  //   const password = e.target.elements.passwordField.value;
-  //   const passwordConfirm = e.target.elements.passwordCheckField.value;
-  //   console.log(e.target.elements);
-  //   const newUser = {
-  //     email: login,
-  //     password: password,
-  //     passwordConfirm: passwordConfirm,
-  //   };
+  const navigate = useNavigate();
+  const handleSubmit = async (formValues) => {
 
-  //   const createUser = async () => {
-  //     console.log(newUser);
-  //     const requestOptions = {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(newUser),
-  //     };
 
-  //     const response = await fetch("/api/Account/Register", requestOptions);
-  //     return await response.json().then(
-  //       (data) => {
-  //         console.log(data);
+    const newUser = {
+      email: formValues.login,
+      password: formValues.password,
+      passwordConfirm: formValues.passwordConfirm,
+      name: formValues.name,
+      sername: formValues.sername,
+      dob: formValues.dob,
+      passport: formValues.passport,
+      phone: formValues. phone
+    };
 
-  //         if (response.ok) {
-  //           setUser({ IsAuthenticated: true, userName: newUser.email, userRole: "user" });
-  //           navigate("/");
-  //         }
-  //       },
-  //       (error) => console.log(error)
-  //     );
-  //   };
-  //   createUser();
-  // };
+    const createUser = async () => {
+      console.log(newUser);
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      };
+
+      const response = await fetch("/api/Account/Register", requestOptions);
+      return await response.json().then(
+        (data) => {
+          console.log(data);
+
+          if (response.ok) {
+            setUser({ IsAuthenticated: true, userName: newUser.email, userRole: "user", patient: data.patient });
+            navigate("/Account");
+          }
+          
+        },
+        (error) => console.log(error)
+      );
+    };
+    createUser();
+  };
 
   return (
     <React.Fragment>
@@ -50,22 +53,55 @@ const Register = (/*{ setUser }*/) => {
         <div className="FormWrapper">
             <Form
               className="FormClass"
-              //onFinish={login}
-              name="basic"
-            
+              onFinish={handleSubmit}
+              name="basic"     
               initialValues={{remember: true}}
-              //onFinishFailed={renderErrorMessage}
-              autoComplete="off"
-              >
+              autoComplete="off">
                 <Form.Item
                   className="FormItemClass FancyText"
                   label="Имя пользователя"
-                  name="username"
+                  name="login"
+                  rules={[{required: true, message: "Введите имя пользователя"}]}>
+                  <Input/>
+                </Form.Item>
 
-                  rules={[
-                    {required: true, message: "Введите имя пользователя"}
-                  ]}
-                >
+                <Form.Item
+                  className="FormItemClass FancyText"
+                  label="Имя"
+                  name="name"
+                  rules={[{required: true, message: "Введите имя"}]}>
+                  <Input/>
+                </Form.Item>
+
+                <Form.Item
+                  className="FormItemClass FancyText"
+                  label="Фамилия"
+                  name="sername"
+                  rules={[{required: true, message: "Введите фамилию"}]}>
+                  <Input/>
+                </Form.Item>
+
+                <Form.Item
+                  className="FormItemClass FancyText"
+                  label="Дата рождения"
+                  name="dob"
+                  rules={[{required: true, message: "Введите дату рождения"}]}>
+                     <DatePicker/>
+                </Form.Item>
+
+                <Form.Item
+                  className="FormItemClass FancyText"
+                  label="Паспорт"
+                  name="passport"
+                  rules={[{required: true, message: "Введите имя"}]}>
+                  <Input/>
+                </Form.Item>
+
+                <Form.Item
+                  className="FormItemClass FancyText"
+                  label="Телефон"
+                  name="phone"
+                  rules={[{required: true, message: "Введите фамилию"}]}>
                   <Input/>
                 </Form.Item>
 
@@ -73,28 +109,26 @@ const Register = (/*{ setUser }*/) => {
                   className="FormItemClass FancyText"
                   label="Пароль"
                   name="password"
-                  rules={[
-                    {required: true, message: "Введите пароль"}
-                  ]}
-                >
+                  rules={[{required: true, message: "Введите пароль"}]}>
                   <Input.Password/>
                 </Form.Item>
 
                 <Form.Item
                   className="FormItemClass FancyText"
                   label="Подтвердите пароль"
-                  name="passwordCheck"
-                  rules={[
-                    {required: true, message: "Введите пароль"}
-                  ]}
-                >
+                  name="passwordConfirm"
+                  rules={[{required: true, message: "Введите пароль"}]}>
                   <Input.Password/>
                 </Form.Item>
 
+                <div className="LowerButtons">
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                   <Button className="FormButton" htmlType="submit"> Зарегистрироваться </Button>
                 </Form.Item>
+                <Button className="FormButton RegistrationButton" onClick={() => navigate('/Login')}> Войти </Button>
+              </div>
             </Form>
+
           </div>
     </React.Fragment>
 

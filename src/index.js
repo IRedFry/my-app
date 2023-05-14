@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import "./index.css";
 
 // Импорты старых докторов
 import Doctor from "./Components/Doctors/Doctor";
-//import CreateDoctor from "./Components/DoctorCreate/DoctorCreate.js";
 import DoctorPage from "./Components/Doctors/DoctorPage";
 import ServicePage from "./Components/Services/ServicePage";
 import Layout from "./Components/Layout/Layout";
@@ -20,16 +19,8 @@ import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
 
 const App = () => {
 
-
-  // Старые переменные для докторов
-  //const [doctors, setDoctors] = useState([]);
-  //const createDoctor = (doctor) => setDoctors([...doctors, doctor]);
-  //const removeDoctor = (removeId) =>
-  //setDoctors(doctors.filter(({ id }) => id !== removeId));
-
-  const [user, setUser] = useState({ isAuthenticated: false, userName: "", userRole: "" });
+  const [user, setUser] = useState({ isAuthenticated: false, userName: "", userRole: "", patient: {}, doctor: {} });
   useEffect(() => {
-
     const getUser = async () => {
       return await fetch("/api/Account/IsAuthenticated")
         .then((response) => {
@@ -43,7 +34,7 @@ const App = () => {
               typeof data != "undefined" &&
               typeof data.userName != "undefined"
             ) {
-              setUser({ isAuthenticated: true, userName: data.userName, userRole: data.userRole });
+              setUser({ isAuthenticated: true, userName: data.userName, userRole: data.userRole, patient: data.patient, doctor: data.doctor  });
             }
           },
           (error) => {
@@ -54,7 +45,68 @@ const App = () => {
     getUser();
   }, [setUser]);
 
-  user.userRole = "doctor";
+  const[specializations, setSpecializations] = useState([]);
+
+  useEffect(() => {
+      const getSpecialization = async () => {
+          const requestOptions = {
+              method : 'GET'
+          }
+          return await fetch('/api/Specialization', requestOptions)
+          .then(response => response.json())
+          .then((data) => {
+              console.log('SpecializationData:  ', data);
+              setSpecializations(data);
+          },
+          (error) => {
+              console.log(error);
+          });
+      }   
+      getSpecialization();
+  
+  }, [setSpecializations])
+
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+      const getServices = async () => {
+          const requestOptions = {
+              method: 'GET'
+          }
+
+          return await fetch('/api/Services', requestOptions)
+              .then(response => response.json())
+              .then((data) => {
+                  console.log('ServiceData:  ', data);
+                  setServices(data);
+              },
+                  (error) => {
+                      console.log(error);
+                  });
+      }
+      getServices();
+
+  }, [setServices])
+  
+  const[doctors, setDoctors] = useState([]);
+  useEffect(() => {
+      const getDoctors = async () => {
+          const requestOptions = {
+              method : 'GET'
+          }
+  
+          return await fetch('/api/Doctor', requestOptions)
+          .then(response => response.json())
+          .then((data) => {
+              console.log('DoctorsBySpecializationData:  ', data);
+              setDoctors(data);
+          },
+          (error) => {
+              console.log(error);
+          });
+      }
+      getDoctors();
+  }, [setDoctors])
 
   return (
     <BrowserRouter>
@@ -70,7 +122,7 @@ const App = () => {
             path="/Doctors"
             element={
               <div>
-                <DoctorPage></DoctorPage>
+                <DoctorPage specializations={specializations}></DoctorPage>
                 {/* <CreateDoctor user={user} createDoctor={createDoctor} />
               <Doctor
                 user = {user}
@@ -86,7 +138,7 @@ const App = () => {
             path="/Services"
             element={
               <div>
-                <ServicePage></ServicePage>
+                <ServicePage doctors={doctors} user={user} services={services}></ServicePage>
               </div>
             }
           />
@@ -96,8 +148,8 @@ const App = () => {
           />
           <Route path="/LogOff" element={<LogOff setUser={setUser} />} />
           <Route path="/Register" element={<Register setUser={setUser} />} />
-          <Route path="/Account" element={ user.userRole === "client" ? <Account /> : <AccountDoctor/>} />
-          <Route path="/Doctors/:id" element={<Doctor></Doctor>} />
+          <Route path="/Account" element={ user.userRole === "user" ? <Account user={user} setUser={setUser} /> : user.userRole === "doctor" ? <AccountDoctor user={user} setUser={setUser}/> : <Navigate to="/Login" /> } />
+          <Route path="/Doctors/:id" element={<Doctor user={user} services={services} doctors={doctors}></Doctor>} /> 
           <Route path="*" element={<h3>404</h3>} />
         </Route>
       </Routes>

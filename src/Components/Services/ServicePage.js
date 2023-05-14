@@ -1,51 +1,30 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import Service from "./Service"
 import AppoinmentModal from "../Appoinment/AppoinmentModal"
 /*
     TODO:
 */
 
-const ServicePage = () => {
+const ServicePage = ({services, doctors, user }) => {
+    console.log("ServicePage");
+    console.log(user);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentService, setCurrentService] = useState(null)
+    const [currentServiceId, setCurrentServiceId] = useState(null)
 
-    const[services, setServices] = useState([]);
-
-    useEffect(() => {
-        const getServices = async () => {
-            const requestOptions = {
-                method : 'GET'
-            }
-    
-            return await fetch('/api/Services', requestOptions)
-            .then(response => response.json())
-            .then((data) => {
-                console.log('ServiceData:  ', data);
-                setServices(data);
-            },
-            (error) => {
-                console.log(error);
-            });
-        }   
-        getServices();
-    
-    }, [setServices])
-
-    // const services = [  {id: 0, name: "Проверка зрения", specialization: "Офтальмолог", price: "1200руб.", duration: 1},
-    //                     {id: 1, name: "УЗИ", specialization: "Хирург", price: "3300руб.", duration: 3},
-    //                     {id: 2, name: "Проверка работоспособности ребёнка", specialization: "Педиатр", price: "50руб. за кг ребёнка", duration: 2},
-    //                     {id: 3, name: "Свиная вырезка", specialization: "Хирург", price: "1000руб. за кг", duration: 1}];
     return (
         <>
             <div className="PageHeader FancyText">
                 Услуги
             </div>
-            <AppoinmentModal service={currentService} visible={isModalOpen} setIsModalOpen={setIsModalOpen}></AppoinmentModal>
+            {user.IsAuthenticated && user.patient != undefined ?
+                (<AppoinmentModal user={user} doctors={doctors} services={services} serviceId={currentServiceId} visible={isModalOpen} setIsModalOpen={setIsModalOpen} patient={user.patient}></AppoinmentModal>) : ("")
+            }
+
             <div className="ServiceContainer">
                 {
                     services.map(({ id, name, specializationName, price, duration }) => {
                         return (
-                            <Service key={id} service={{id, name, specializationName, price, duration}} setIsModalOpen={setIsModalOpen} setCurrentService={setCurrentService}/>
+                            <Service key={id} user={user} service={{ id, name, specializationName, price, duration }} setIsModalOpen={setIsModalOpen} setCurrentServiceId={setCurrentServiceId} />
                         )
                     })
                 }

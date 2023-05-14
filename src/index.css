@@ -360,11 +360,11 @@ footer {
   display: flex;
   flex-direction: column;
   background-color: var(--light-green);
-  height: 50vh;
 }
 
 
-.FormItemClass .ant-form-item-label > label, .FormItemClass label{
+.FormItemClass .ant-form-item-label>label,
+.FormItemClass label {
   font-size: 30px;
   font-weight: bolder;
   color: white;
@@ -453,7 +453,7 @@ ACCOUNT
   color: var(--true-white);
 }
 
-.AccountContainer .AccountBlock:nth-child(2n + 1) .ServicePanel{
+.AccountContainer .AccountBlock:nth-child(2n + 1) .ServicePanel {
   background-color: var(--dark-green);
 }
 
@@ -501,7 +501,10 @@ Schedule in Account
   margin-right: 10%;
 }
 
-.ScheduleSlider .ant-slider-track{
+
+
+
+.ScheduleSlider .ant-slider-track {
   background-color: var(--grey-green) !important;
   height: 15px;
 }
@@ -514,36 +517,41 @@ Schedule in Account
   background-color: var(--light-green) !important;
 }
 
-.ScheduleSlider:hover .ant-slider-track{
-  background-color:  var(--light-green) !important;
+.ScheduleSlider:hover .ant-slider-track {
+  background-color: var(--light-green) !important;
 }
 
-.ScheduleSlider .ant-slider-rail{
+.ScheduleSlider .ant-slider-rail {
   height: 15px;
   background-color: var(--grey) !important;
 }
 
-.ScheduleSlider .ant-slider-handle::after, .ScheduleSlider .ant-slider-handle:hover::after,.ScheduleSlider .ant-slider-handle:focus::after   {
+.ScheduleSlider .ant-slider-handle::after,
+.ScheduleSlider .ant-slider-handle:hover::after,
+.ScheduleSlider .ant-slider-handle:focus::after {
   width: 20px;
   height: 20px;
 
 }
-.ScheduleSlider.ant-slider-handle::after,.ScheduleSlider .ant-slider-handle-1::after {
+
+.ScheduleSlider.ant-slider-handle::after,
+.ScheduleSlider .ant-slider-handle-1::after {
   background-color: var(--true-white) !important;
 }
 
-.ScheduleSlider .ant-slider-handle::before, .ScheduleSlider .ant-slider-handle-1::before {
+.ScheduleSlider .ant-slider-handle::before,
+.ScheduleSlider .ant-slider-handle-1::before {
   border-color: var(--dark-green) !important;
 }
 
-.ant-slider-dot{
+.ant-slider-dot {
   border-color: var(--light-green) !important;
   font-size: 20px;
   margin-top: 5px;
   transform: scale(2.2) !important;
 }
 
-.ScheduleSlider:hover .ant-slider-dot-active{
+.ScheduleSlider:hover .ant-slider-dot-active {
   border-color: var(--grey-green) !important;
 }
 
@@ -551,6 +559,36 @@ Schedule in Account
   margin: 10px 0;
 }
 
+.WeekScheduleWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.SaveScheduleButton {
+  margin-top: 3%;
+  margin-left: 20%;
+  margin-right: 20%;
+  text-align: center;
+  background-color: var(--grey-green);
+  font-size: 35pt;
+
+  border-radius: 20px;
+  border-color: transparent;
+  overflow: hidden;
+  height: auto;
+}
+
+.SaveScheduleButton:hover {
+  background-color: var(--dark-green);
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.SaveScheduleButton:active {
+  background-color: var(--light-green);
+  color: white !important;
+  border-color: transparent !important;
+}
 
 /*
 
@@ -563,11 +601,151 @@ SLOTS
 }
 
 
-.ant-radio-button-wrapper  {
+.SlotGroup .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background-color: var(--light-green);
+}
+
+.SlotGroup .ant-radio-button-wrapper {
   overflow: hidden;
   margin: 5px;
   border-left-width: 1px;
   border-radius: 10px;
+  background-color: var(--dark-green);
+  color: white;
+  font-size: 12pt;
+  font-weight: bold;
+  border-color: var(--light-green) !important;
+}
+
+.SlotGroup .ant-radio-button-wrapper .ant-radio-button-checked {
+  background-color: var(--light-green);
+  border-color: var(--light-green) !important;
 }
 
 
+
+
+.LowerButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.RegistrationButton {
+  margin-bottom: auto;
+}
+
+.ant-notification {
+  font-size: 26px !important;
+}
+
+.custom-class .ant-notification-notice-description {
+  font-size: 15pt !important;
+  font-style: italic;
+}
+
+.custom-class .ant-notification-notice-message {
+  color: darkred !important;
+  font-size: 20pt !important;
+  font-style: italic;
+}
+
+.custom-class-2 .ant-notification-notice-description {
+  font-size: var(--grey-green) !important;
+  font-style: italic;
+}
+
+.custom-class-2 .ant-notification-notice-message {
+  color: var(--dark-green) !important;
+  font-size: 20pt !important;
+  font-style: italic;
+}
+
+
+/*
+
+  Appoitment Modal
+
+*/
+
+.AppoitmentModal .ant-form {
+  border-radius: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.AppoitmentModal .ant-modal-content {
+  background-color: var(--white);
+}
+
+.AppoitmentModal .ant-input-disabled {
+  background-color: white;
+}
+
+.AppoitmentModal .ant-form-item-label>label {
+  font-size: 15pt;
+}
+
+.AppoitmentModal .ant-btn-primary {
+  background-color: var(--dark-green);
+  font-size: 15pt;
+  border-radius: 10px;
+  padding-bottom: 35px;
+}
+
+.AppoitmentModal .ant-btn-primary:hover {
+  background-color: var(--light-green);
+
+}
+
+.AppoitmentModal .ant-btn-default {
+  border-radius: 10px;
+  font-size: 15pt;
+  padding-bottom: 35px;
+}
+
+.AppoitmentModal .ant-btn-default:hover {
+  border-color: var(--light-green);
+  color: var(--light-green)
+}
+
+/*
+
+Conclusion
+
+*/
+
+.ConclusionClass .ant-input{
+  margin-top: 15px;
+  border-color: var(--dark-green);
+}
+.ConclustionButton {
+  text-align: center;
+  background-color: var(--dark-green);
+  color: white;
+  margin-top: 10px;
+  font-size: 18pt;
+  border-radius: 20px;
+  border-color: transparent;
+  overflow: hidden;
+  height: auto;
+}
+
+.ConclustionButton:hover {
+  background-color: var(--light-green);
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.ConclustionButton:active {
+  background-color: var(--dark-grey);
+  color: white !important;
+  border-color: transparent !important;
+}
+
+
+.ConclusionLabel .ant-form-item-required  {
+  color:black !important;
+  font-weight: 400 !important;
+}

@@ -1,53 +1,56 @@
 import React, { useState, useEffect } from "react";
-import {Radio} from "antd"
+import { Radio } from "antd"
 
-const AppoinmentSchedule = ({ date, duration, schedule }) => {
-  const [dayOfWeek, setDayOfWeek] = useState(null);
-  const [scheduleItem, setScheduleItem] = useState(null);
-  const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
+const AppoinmentSchedule = ({ date, service, doctor, setPickedSlot }) => {
+  const [scheduleDayWithSlots, setScheduleDayWithSlots] = useState(null);
 
   useEffect(() => {
-    const dayIndex = new Date(date).getDay() == 0 ? 6 : new Date(date).getDay() - 1;
+    console.log("getSetScheduleWithSlots")
+    const getScheduleDayWithSlots = async () => {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serviceId: service.id,
+          date: date
+        }),
+      };
+      await fetch(`/api/Schedule/${doctor.id}`, requestOptions)
+        .then((response) => response.json())
+        .then(
+          (data) => {
+            console.log("Data: ", data);
+            setScheduleDayWithSlots(data);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    };
+    getScheduleDayWithSlots();
+  });
 
-    setDayOfWeek(dayIndex);
-  }, [date]);
 
-  useEffect(() => {
-    if (dayOfWeek !== null) {
-      const item = schedule.find((s) => s.id == dayOfWeek);
-      setScheduleItem(item);
-    }
-  }, [dayOfWeek, schedule]);
-
-  useEffect(() => {
-    if (scheduleItem !== null) {
-      const availableSlots = [];
-      console.log("SCHEDULE START");
-      for (let i = parseInt(scheduleItem.start); i + parseInt(duration) <= parseInt(scheduleItem.end); i++) {
-        console.log("I == " + i);
-        availableSlots.push({ start: i, end: i + parseInt(duration) });
-      }
-      setAvailableTimeSlots(availableSlots);
-      console.log("AVALIABLE SLOTS");
-      console.log(availableSlots);
-    }
-  }, [duration, scheduleItem]);
+  const OnSlotChange = (e) => {
+    console.log(e.target.value);
+    setPickedSlot(e.target.value);
+  }
 
   return (
     <div>
-      {dayOfWeek !== null && scheduleItem !== null && (
+      {scheduleDayWithSlots !== null && (
         <>
-          <h3>Расписание на {scheduleItem.day}</h3>
-          {availableTimeSlots.length === 0 ? (
+          <h3>Расписание на {scheduleDayWithSlots.scheduleDay.dayOfWeekString}</h3>
+          {scheduleDayWithSlots.slots.length === 0 ? (
             <p>Нет доступных слотов на сегодня</p>
           ) : (
             <>
               <p>Доступные слоты:</p>
-              <Radio.Group className="SlotGroup" buttonStyle="solid" size="large">     
-                {availableTimeSlots.map((slot) => (
-                    <Radio.Button className="SlotButton" key={slot.start} value={slot.start}>
-                    {slot.start}:00 - {slot.end}:00
-                    </Radio.Button>
+              <Radio.Group className="SlotGroup" buttonStyle="solid" size="large" onChange={OnSlotChange}>
+                {scheduleDayWithSlots.slots.map(({startTime, endTime}) => (
+                  <Radio.Button className="SlotButton" key={startTime} value={startTime} >
+                    {startTime.split(":")[0]}:00 - {endTime.split(":")[0]}:00
+                  </Radio.Button>
                 ))}
               </Radio.Group>
             </>

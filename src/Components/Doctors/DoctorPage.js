@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import SpecializationBlock from './SpecializationBlock';
 
 /*
@@ -9,29 +9,7 @@ import SpecializationBlock from './SpecializationBlock';
 
 */
 
-const DoctorPage = () => {
-
-    const[specializations, setSpecializations] = useState([]);
-
-    useEffect(() => {
-        const getSpecialization = async () => {
-            const requestOptions = {
-                method : 'GET'
-            }
-    
-            return await fetch('/api/Specialization', requestOptions)
-            .then(response => response.json())
-            .then((data) => {
-                console.log('SpecializationData:  ', data);
-                setSpecializations(data);
-            },
-            (error) => {
-                console.log(error);
-            });
-        }   
-        getSpecialization();
-    
-    }, [setSpecializations])
+const DoctorPage = ({specializations, doctors}) => {
     
     return (
         <>
@@ -42,7 +20,7 @@ const DoctorPage = () => {
             {
                     specializations.map(({ id, name }) => {
                         return (
-                            <SpecializationBlock key={id} id={id} specializationName={name}></SpecializationBlock>
+                            <SpecializationBlock key={id} id={id} specializationName={name} doctors={doctors}></SpecializationBlock>
                         )
                     })
                 }
